@@ -7,20 +7,40 @@ const initialData = {
   email: '',
   profession: '',
   age: '',
+  image: '',
 }
-const AddContact = () => {
-  const { contact, setContact } = useState(initialData)
+const AddContact = ({ addContact }) => {
+  const [contact, setContact] = useState(initialData)
 
-  const { firstName, lastName, email, profession, age } = contact
+  const { firstName, lastName, email, profession, age, image } = contact
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    // console.log(contact)
+    addContact(contact)
   }
-  const handleChange = (e) => {}
+
+  const handleChange = (e) => {
+    setContact({ ...contact, [e.target.name]: e.target.value })
+  }
   return (
     <>
+      <h2 className="text-center">Add Contact</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className="mb-3">
+          <Col sm={3}>
+            <Form.Label htmlFor="image">Profile Picture :</Form.Label>
+          </Col>
+          <Col sm={9}>
+            <Form.Control
+              type="text"
+              name="image"
+              id="image"
+              placeholder="image link"
+              value={image}
+              onChange={handleChange}
+            />
+          </Col>
           <Col sm={3}>
             <Form.Label htmlFor="firstName" column>
               First Name :
@@ -32,7 +52,7 @@ const AddContact = () => {
               name="firstName"
               id="firstName"
               placeholder="First name"
-              // value={firstName}
+              value={firstName}
               onChange={handleChange}
             />
           </Col>
@@ -47,7 +67,7 @@ const AddContact = () => {
               name="lastName"
               id="lastName"
               placeholder="Last name"
-              // value={lastName}
+              value={lastName}
               onChange={handleChange}
             />
           </Col>
@@ -62,7 +82,7 @@ const AddContact = () => {
               name="email"
               id="email"
               placeholder="Email"
-              // value={email}
+              value={email}
               onChange={handleChange}
             />
           </Col>
@@ -77,7 +97,7 @@ const AddContact = () => {
               name="profession"
               id="profession"
               placeholder="Profession"
-              // value={profession}
+              value={profession}
               onChange={handleChange}
             />
           </Col>
@@ -92,12 +112,14 @@ const AddContact = () => {
               name="age"
               id="age"
               placeholder="Age"
-              // value={age}
+              value={age}
               onChange={handleChange}
             />
           </Col>
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="primary" size="md">
+          Add Contact
+        </Button>
       </Form>
     </>
   )

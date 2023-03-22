@@ -1,5 +1,5 @@
-import React from "react";
-import Contact from "./Contact";
+import React from 'react'
+import Contact from './Contact'
 
 const Contacts = ({ contacts, deleteContact }) => {
   return (
@@ -13,7 +13,7 @@ const Contacts = ({ contacts, deleteContact }) => {
         />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Contacts;
+export default Contacts
