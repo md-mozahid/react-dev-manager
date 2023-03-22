@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
 *,
 *::after,
@@ -38,5 +38,16 @@
 }
 
 .brand {
-  font-family: 'lobster' cursive monospace;
+  font-family: "lobster" cursive monospace;
+}
+
+.cardImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
 }
