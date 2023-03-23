@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const initialData = {
@@ -14,6 +14,7 @@ const initialData = {
 
 const AddContact = ({ addContact }) => {
   const [contact, setContact] = useState(initialData)
+  const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState(false)
 
   const { firstName, lastName, email, profession, age, image } = contact
@@ -22,8 +23,9 @@ const AddContact = ({ addContact }) => {
     e.preventDefault()
     // console.log(contact)
     addContact(contact)
+    ;<ToastContainer />
 
-    // form validation
+    //form validation
     const userError = {
       firstName: '',
       lastName: '',
@@ -39,19 +41,49 @@ const AddContact = ({ addContact }) => {
       userError.firstName = 'Please input first name'
     } else if (firstName.length <= 1) {
       isError = true
-      userError.firstName = 'Min 2 character'
+      userError.firstName = 'Minimum 2 character'
     }
+
     if (lastName === '') {
       isError = true
       userError.lastName = 'Please input last name'
     } else if (lastName.length <= 1) {
       isError = true
-      userError.lastName = 'Min 2 character'
+      userError.lastName = 'Minimum 2 character'
     }
+
+    const emailVal = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)
+    if (email === '') {
+      isError = true
+      userError.email = 'Please input email address'
+    } else if (!emailVal) {
+      isError = true
+      userError.email = 'Invalid email address'
+    }
+
+    if (profession === '') {
+      isError = true
+      userError.profession = 'Please input profession'
+    } else if (profession.length <= 1) {
+      isError = true
+      userError.profession = 'Minimum 2 character'
+    }
+
+    if (image === '') {
+      isError = true
+      userError.image = 'Please input profile picture link'
+    }
+    if (age === '') {
+      isError = true
+      userError.age = 'Please input age'
+    }
+
     setErrors(userError)
     if (isError) return
+
+    setSubmitted(true)
+    setContact(initialData)
   }
-  ;<ToastContainer />
 
   const handleChange = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value })
@@ -59,7 +91,8 @@ const AddContact = ({ addContact }) => {
   return (
     <>
       <h2 className="text-center">Add Contact</h2>
-      <Form onSubmit={handleSubmit}>
+      {submitted && toast.success('Form submitted successfully')}
+      <Form onSubmit={handleSubmit} noValidate>
         <Form.Group as={Row} className="mb-3">
           <Col sm={3}>
             <Form.Label htmlFor="firstName" column>
@@ -76,7 +109,12 @@ const AddContact = ({ addContact }) => {
               onChange={handleChange}
             />
           </Col>
-          <p>{errors}</p>
+
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.firstName}</p>
+          </Col>
+
           <Col sm={3}>
             <Form.Label htmlFor="lastName" column>
               Last Name :
@@ -91,6 +129,10 @@ const AddContact = ({ addContact }) => {
               value={lastName}
               onChange={handleChange}
             />
+          </Col>
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.lastName}</p>
           </Col>
           <Col sm={3}>
             <Form.Label htmlFor="email" column>
@@ -107,6 +149,10 @@ const AddContact = ({ addContact }) => {
               onChange={handleChange}
             />
           </Col>
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.email}</p>
+          </Col>
           <Col sm={3}>
             <Form.Label htmlFor="profession" column>
               Profession :
@@ -122,6 +168,10 @@ const AddContact = ({ addContact }) => {
               onChange={handleChange}
             />
           </Col>
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.profession}</p>
+          </Col>
           <Col sm={3}>
             <Form.Label htmlFor="image">Profile Picture :</Form.Label>
           </Col>
@@ -134,6 +184,10 @@ const AddContact = ({ addContact }) => {
               value={image}
               onChange={handleChange}
             />
+          </Col>
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.image}</p>
           </Col>
           <Col sm={3}>
             <Form.Label htmlFor="age" column>
@@ -149,6 +203,10 @@ const AddContact = ({ addContact }) => {
               value={age}
               onChange={handleChange}
             />
+          </Col>
+          <Col sm={3}></Col>
+          <Col sm={9}>
+            <p className="mt-2 text-danger">{errors.age}</p>
           </Col>
         </Form.Group>
         <Button type="submit" variant="primary" size="md">
