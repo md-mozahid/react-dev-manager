@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const initialData = {
   firstName: '',
@@ -9,8 +11,10 @@ const initialData = {
   age: '',
   image: '',
 }
+
 const AddContact = ({ addContact }) => {
   const [contact, setContact] = useState(initialData)
+  const [errors, setErrors] = useState(false)
 
   const { firstName, lastName, email, profession, age, image } = contact
 
@@ -18,7 +22,36 @@ const AddContact = ({ addContact }) => {
     e.preventDefault()
     // console.log(contact)
     addContact(contact)
+
+    // form validation
+    const userError = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      profession: '',
+      age: '',
+      image: '',
+    }
+    let isError = false
+
+    if (firstName === '') {
+      isError = true
+      userError.firstName = 'Please input first name'
+    } else if (firstName.length <= 1) {
+      isError = true
+      userError.firstName = 'Min 2 character'
+    }
+    if (lastName === '') {
+      isError = true
+      userError.lastName = 'Please input last name'
+    } else if (lastName.length <= 1) {
+      isError = true
+      userError.lastName = 'Min 2 character'
+    }
+    setErrors(userError)
+    if (isError) return
   }
+  ;<ToastContainer />
 
   const handleChange = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value })
@@ -28,19 +61,6 @@ const AddContact = ({ addContact }) => {
       <h2 className="text-center">Add Contact</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className="mb-3">
-          <Col sm={3}>
-            <Form.Label htmlFor="image">Profile Picture :</Form.Label>
-          </Col>
-          <Col sm={9}>
-            <Form.Control
-              type="text"
-              name="image"
-              id="image"
-              placeholder="image link"
-              value={image}
-              onChange={handleChange}
-            />
-          </Col>
           <Col sm={3}>
             <Form.Label htmlFor="firstName" column>
               First Name :
@@ -56,6 +76,7 @@ const AddContact = ({ addContact }) => {
               onChange={handleChange}
             />
           </Col>
+          <p>{errors}</p>
           <Col sm={3}>
             <Form.Label htmlFor="lastName" column>
               Last Name :
@@ -98,6 +119,19 @@ const AddContact = ({ addContact }) => {
               id="profession"
               placeholder="Profession"
               value={profession}
+              onChange={handleChange}
+            />
+          </Col>
+          <Col sm={3}>
+            <Form.Label htmlFor="image">Profile Picture :</Form.Label>
+          </Col>
+          <Col sm={9}>
+            <Form.Control
+              type="text"
+              name="image"
+              id="image"
+              placeholder="Profile picture link"
+              value={image}
               onChange={handleChange}
             />
           </Col>
