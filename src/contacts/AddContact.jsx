@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
+import Datepicker from 'react-datepicker'
 import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const initialData = {
   firstName: '',
   lastName: '',
   email: '',
   profession: '',
-  age: '',
+  dateOfBirth: '',
   image: '',
 }
 
@@ -17,7 +17,7 @@ const AddContact = ({ addContact }) => {
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState(false)
 
-  const { firstName, lastName, email, profession, age, image } = contact
+  const { firstName, lastName, email, profession, dateOfBirth, image } = contact
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -72,10 +72,6 @@ const AddContact = ({ addContact }) => {
     if (image === '') {
       isError = true
       userError.image = 'Please input profile picture link'
-    }
-    if (age === '') {
-      isError = true
-      userError.age = 'Please input age'
     }
 
     setErrors(userError)
@@ -190,23 +186,22 @@ const AddContact = ({ addContact }) => {
             <p className="mt-2 text-danger">{errors.image}</p>
           </Col>
           <Col sm={3}>
-            <Form.Label htmlFor="age" column>
-              Age :
+            <Form.Label htmlFor="dateOfBirth" column>
+              Date Of Birth :
             </Form.Label>
           </Col>
           <Col sm={9}>
-            <Form.Control
-              type="age"
-              name="age"
-              id="age"
-              placeholder="Age"
-              value={age}
-              onChange={handleChange}
+            <Datepicker
+              selected={dateOfBirth}
+              // dateFormat="dd/mm/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              onChange={(date) => setContact({ ...contact, dateOfBirth: date })}
             />
           </Col>
           <Col sm={3}></Col>
           <Col sm={9}>
-            <p className="mt-2 text-danger">{errors.age}</p>
+            <p className="mt-2 text-danger">{errors.dateOfBirth}</p>
           </Col>
         </Form.Group>
         <Button type="submit" variant="primary" size="md">

@@ -2,7 +2,7 @@ import { Button, Card, ListGroup } from 'react-bootstrap'
 import { FaEye, FaRegTrashAlt } from 'react-icons/fa'
 
 const Contact = ({ contact, deleteContact }) => {
-  const { firstName, lastName, email, profession, age, image, id } = contact
+  const { firstName, lastName, email, profession, dateOfBirth, image, id } = contact
   return (
     <>
       <Card className="mt-3 shadow">
@@ -14,7 +14,7 @@ const Contact = ({ contact, deleteContact }) => {
             <ListGroup>
               <ListGroup.Item>Email :{email}</ListGroup.Item>
               <ListGroup.Item>Profession :{profession}</ListGroup.Item>
-              <ListGroup.Item>Age: {age}</ListGroup.Item>
+              <ListGroup.Item>Date of Birth: {dateOfBirth}</ListGroup.Item>
             </ListGroup>
             <Card.Link>
               <Button variant="warning ms-3 mt-2" size="md">
