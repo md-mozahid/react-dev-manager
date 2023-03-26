@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import DatePicker from '../src//components/DatePicker'
 import Contacts from './contacts/Contacts'
+import About from './layout/About'
 import Header from './layout/Header'
 import Home from './layout/Home'
 import HomeNested from './layout/HomeNested'
@@ -17,10 +17,13 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/Home" element={<Home />}>
-            <Route path="HomeNested" element={<HomeNested />} />
+            <Route path="HomeNested/:name" element={<HomeNested />} />
           </Route>
           <Route path="/Contact" element={<Contacts />} />
-          <Route path="/About" element={<DatePicker />} />
+          <Route path="/About" element={<About />}>
+            <Route path="home" element={<Home />} />
+            <Route path="Login" element={<Login />} />
+          </Route>
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
