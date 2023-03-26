@@ -1,8 +1,8 @@
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
-import { Link as Links } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 const Header = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="md">
       <Container fluid>
         <Navbar.Brand className="brand">Dev Manager</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -11,23 +11,41 @@ const Header = () => {
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: '100px' }}
             navbarScroll>
-            <>
-              {/* <Link to="Home">Home</Link>
-              <Link to="Contact">Contact</Link> */}
-            </>
-            <Nav.Link>
-              <Links to="Home">Home</Links>
-            </Nav.Link>
-            <Nav.Link>
-              <Links to="About">About</Links>
-            </Nav.Link>
-            <Nav.Link>
-              materials
-            </Nav.Link>
-
-            <Nav.Link>Contact</Nav.Link>
-            <Nav.Link>Login</Nav.Link>
-            <Nav.Link>Register</Nav.Link>
+            <NavLink
+              to="Home"
+              className={({ isActive }) =>
+                isActive ? 'active nav-link' : 'nav-link'
+              }>
+              Home
+            </NavLink>
+            <NavLink
+              to="About"
+              className={({ isActive }) =>
+                isActive ? 'active nav-link' : 'nav-link'
+              }>
+              About
+            </NavLink>
+            <NavLink
+              to="Contact"
+              className={({ isActive }) =>
+                isActive ? 'active nav-link' : 'nav-link'
+              }>
+              Contact
+            </NavLink>
+            <NavLink
+              to="Register"
+              className={({ isActive }) =>
+                isActive ? 'active nav-link' : 'nav-link'
+              }>
+              Register
+            </NavLink>
+            <NavLink
+              to="Login"
+              className={({ isActive }) =>
+                isActive ? 'active nav-link' : 'nav-link'
+              }>
+              Login
+            </NavLink>
           </Nav>
           <Form className="d-flex">
             <Form.Control
